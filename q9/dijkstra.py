@@ -132,7 +132,7 @@ class Dijkstra(EventMixin):
             self.graph[node] = {}
             self.ports[node] = {}
 
-        # For each link, get the link info (including 'key') and ports
+        # For each link, get the link info and ports
         for (n1, n2) in topo.links():
             # port(n1, n2) -> (port_n1, port_n2)
             (p1, p2) = topo.port(n1, n2)
@@ -144,7 +144,7 @@ class Dijkstra(EventMixin):
             if link_key and link_key in self.delays:
                 delay = self.delays[link_key]
             else:
-                delay = 0  # host links or unlabeled => 0
+                delay = 0
 
             self.graph[n1][n2] = delay
             self.graph[n2][n1] = delay
@@ -163,7 +163,7 @@ class Dijkstra(EventMixin):
             prev[node] = None
         dist[start] = 0
 
-        pq = [(0, start)]  # (distance, node)
+        pq = [(0, start)]
         visited = set()
 
         while pq:
